@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Art Gallery</string>
+    <string name="passport_image_description">A passport image of myself</string>
+    <string name="picture_of_me_painting_nothing_description">A picture of me painting nothing</string>
+    <string name="picture_of_me_painting_graffiti_description">a picture of me painting graffiti</string>
+    <string name="chilling_on_top_of_car_description">Chilling on top of a car</string>
+    <string name="unedited_picture_of_myself_description">An unedited pic of me painting</string>
+    <string name="posing_wearing_a_mask_description">Me posing at a picture wearing a mask</string>
+    <string name="watching_sunset_description">Edited image with me watching the sunset</string>
+    <string name="lawren_photography">Lawren Photography</string>
+    <string name="alan_gitonga">Alan Gitonga</string>
+    <string name="year_2019">(2019)</string>
+    <string name="year_2021">(2021)</string>
+    <string name="year_2020">(2020)</string>
+</resources>
