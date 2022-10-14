@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -50,6 +49,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ArtGalleryUI() {
     var imageId by remember {mutableStateOf(1)}
+    //use remember to maintain the buttons statuses
+    var prevEnabled by remember{mutableStateOf(false)}
+    var nextEnabled by remember{mutableStateOf(true)}
     val imageResourceId = when(imageId) {
         1 -> R.drawable.my_passport
         2 -> R.drawable.painting_blank
@@ -88,14 +90,30 @@ fun ArtGalleryUI() {
         else -> stringResource(R.string.year_2021)
 
     }
+    //functionality for the previous button.
     val onClickPrev :(Int) -> Unit = {
-        if (imageId in 2..7){
+        if (imageId in 3..7){
             imageId--
+            prevEnabled = true
+            nextEnabled = true
+        }
+        else if (imageId == 2){
+            imageId--
+            prevEnabled = false
         }
     }
+    //adding functionality to next button
     val onClickNext: (Int) -> Unit = {
-        if (imageId in 1..6) {
-            imageId++
+        when(imageId){
+            in 1..5 -> {
+                imageId++
+                nextEnabled = true
+                prevEnabled = true
+            }
+            6 -> {
+                imageId++
+                nextEnabled = false
+            }
         }
     }
         Box (modifier = Modifier
@@ -111,6 +129,7 @@ fun ArtGalleryUI() {
 //            Spacer(modifier = Modifier.height(24.dp))
             Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.Bottom) {
                 Button(onClick = {onClickPrev(imageId)},
+                    enabled = prevEnabled,
                     modifier = Modifier
                         .padding(16.dp)
                         .weight(1.0f)) {
@@ -118,6 +137,7 @@ fun ArtGalleryUI() {
                 }
                 Spacer(modifier = Modifier.width(24.dp))
                 Button(onClick = {onClickNext(imageId)},
+                    enabled = nextEnabled,
                     modifier = Modifier
                         .padding(16.dp)
                         .weight(1.0f)) {
@@ -158,44 +178,5 @@ fun ImageDescription(imageResourceId: Int, contentDescription: String, photograp
                 modifier = Modifier.padding(4.dp,0.dp,4.dp,4.dp))
         }
 
-    }
-}
-@Composable
-fun BoxTesting() {
-    Box {
-        Box(
-            Modifier
-                .fillMaxSize()
-                .background(Color.Cyan))
-        Box(
-            Modifier
-                .matchParentSize()
-                .padding(top = 20.dp, bottom = 20.dp)
-                .background(Color.Yellow)
-        )
-        Box(
-            Modifier
-                .matchParentSize()
-                .padding(40.dp)
-                .background(Color.Magenta)
-        )
-        Box(
-            Modifier
-                .align(Alignment.Center)
-                .size(300.dp, 300.dp)
-                .background(Color.Green)
-        )
-        Box(
-            Modifier
-                .align(Alignment.TopStart)
-                .size(150.dp, 150.dp)
-                .background(Color.Red)
-        )
-        Box(
-            Modifier
-                .align(Alignment.BottomEnd)
-                .size(150.dp, 150.dp)
-                .background(Color.Blue)
-        )
     }
 }
